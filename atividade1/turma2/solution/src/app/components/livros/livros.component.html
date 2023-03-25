@@ -1,0 +1,10 @@
+<!--
+  190044
+  222906
+-->
+
+<div *ngFor="let livro of livros">
+  <a [routerLink]="['/livro', livro.id]">{{livro.nome}} -- {{livro.anoPublicacao}}</a>
+
+
+</div>

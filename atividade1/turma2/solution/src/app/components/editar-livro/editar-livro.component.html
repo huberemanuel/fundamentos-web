@@ -1,0 +1,11 @@
+<div *ngIf="livro != null">
+  <h1>Nome do livro: {{livro.nome}}</h1>
+  <input type="text" id="nome" placeholder="Nome" [(ngModel)]="livro.nome">
+  <h2>Ano de publicação: {{livro.anoPublicacao}}</h2>
+  <input type="text" id="anoPublicacao" placeholder="Ano de Publicação" [(ngModel)]="livro.anoPublicacao" />
+  <button (click)="salvarLivro()">Salvar</button>
+</div>
+
+<div *ngIf="livro == null">
+  <h2>Livro não encontrado</h2>
+</div>

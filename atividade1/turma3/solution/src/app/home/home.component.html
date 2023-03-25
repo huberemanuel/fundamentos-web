@@ -1,0 +1,6 @@
+<ul>
+  <span>ALUNOS: </span>
+  <li *ngFor="let aluno of alunos">
+    <a [routerLink]="['/aluno', aluno.ra]">{{ aluno.nome }}</a>
+  </li>
+</ul>

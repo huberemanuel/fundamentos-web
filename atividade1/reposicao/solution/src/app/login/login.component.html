@@ -1,0 +1,16 @@
+<h1>Login</h1>
+
+<form (ngSubmit)="validarLogin()">
+  <div>
+    <label for="usuario">Usuário:</label>
+    <input type="text" id="usuario" name="usuario" [(ngModel)]="usuario" required>
+  </div>
+  <div>
+    <label for="senha">Senha:</label>
+    <input type="password" id="senha" name="senha" [(ngModel)]="senha" required>
+  </div>
+  <div *ngIf="mensagemErro">
+    <span>{{ mensagemErro }}</span>
+  </div>
+  <button type="submit">Entrar</button>
+</form>

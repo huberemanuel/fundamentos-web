@@ -1,0 +1,20 @@
+<h1 class="display-2">Login</h1>
+
+<div class="row mb-3">
+    <div class="col">
+        <label for="user" class="form-label">Usuario</label>
+        <input type="text" class="form-control" id="user" [(ngModel)]="user">
+    </div>
+    <div class="col">
+        <div class="col">
+            <label for="senha" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="senha" [(ngModel)]="senha">
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-primary" (click)="login()">Entrar</button>
+
+<div class="text-center" *ngIf="mensagem">
+    <label for="mensagem" class="form-label">Usuário ou senha inválido </label>
+</div>
