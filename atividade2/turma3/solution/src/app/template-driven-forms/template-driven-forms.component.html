@@ -1,0 +1,47 @@
+<form #form="ngForm" (ngSubmit)="onSubmit()">
+
+  <label for="nameInput">Nome</label>
+  <input type="text" name="nome" id="nameInput" [(ngModel)]="nome" required>
+  <div *ngIf="form.controls?.['nome']?.invalid" >
+    <div *ngIf="form.controls?.['nome']?.touched || form.controls?.['nome']?.dirty">
+      Este campo é obrigatório, selecione um nome
+    </div>
+  </div>
+
+  <br>
+
+  <label for="cursoSelect">Selecione o Curso</label>
+  <select name="curso" id="cursoSelect" [(ngModel)]="curso" required>
+    <option *ngFor="let curso of cursos" [value]="curso.id">{{ curso.nome }}</option>
+  </select>
+  <div *ngIf="form.submitted">
+    <div *ngIf="form.controls?.['curso']?.invalid">
+      Campo obrigatório, por favor selecione o curso
+    </div>
+  </div>
+
+  <br>
+
+  <label for="idadeInput"></label>
+  <input type="number" name="idade" required min="18" max="100" [(ngModel)]="idade">
+  <div *ngIf="form.submitted && form.controls?.['idade']?.invalid">
+    <div *ngIf="form.controls?.['idade']?.errors?.['required']">
+      Este campo é obrigatório, selecione uma idade entre 18 e 100 anos
+    </div>
+    <div *ngIf="form.controls?.['idade']?.errors?.['min']">
+      Idade mínima para cadastro é 18
+    </div>
+    <div *ngIf="form.controls?.['idade']?.errors?.['max']">
+      Idade maxima para cadastro é 100
+    </div>
+  </div>
+
+  <br>
+  <input type="submit">
+
+</form>
+
+<div *ngIf="submitted">
+  Cadastro concluído com sucesso - {{ form.value.nome }}
+</div>
+

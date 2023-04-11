@@ -1,0 +1,51 @@
+<h3 class="display-5">Cadastro Template Driven:</h3>
+<hr>
+<form class="form" #form="ngForm" (ngSubmit)="onSubmit(form)">
+
+    <div class="form-group mb-3">
+        <label class="form-label" for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" class="form-control" [(ngModel)]="user_nome" required #nome="ngModel" placeholder="Digite seu nome aqui:">
+        <div class="text-danger" *ngIf="form?.submitted">
+            <div *ngIf="nome?.errors?.['required']"><small><b>*</b> Nome é obrigatório.</small></div>
+        </div>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" class="form-control" [(ngModel)]="user_senha" required minlength="4" maxlength="6" #senha="ngModel" placeholder="Digite sua senha aqui:">
+        <div class="text-danger" *ngIf="senha?.invalid && (senha?.dirty || senha?.touched)">
+            <div *ngIf="senha?.errors?.['required']"><small><b>*</b> Senha é obrigatório.</small></div>
+            <div *ngIf="senha?.errors?.['minlength']"><small><b>*</b> Senha deve ter mais que 3 dígitos.</small></div>
+            <div *ngIf="senha?.errors?.['maxlength']"><small><b>*</b> Senha não pode ter mais que 6 dígitos.</small></div>
+        </div>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="csenha">Confirme a Senha:</label>
+        <input type="password" id="csenha" name="csenha" class="form-control" [(ngModel)]="user_csenha" required minlength="4" maxlength="6" #csenha="ngModel" placeholder="Digite novamente sua senha aqui:">
+        <div class="text-danger" *ngIf="csenha?.invalid && (csenha?.dirty || csenha?.touched)">
+            <div *ngIf="csenha?.errors?.['required']"><small><b>*</b> Confirmação de senha é obrigatório.</small></div>
+            <div *ngIf="csenha?.errors?.['minlength']"><small><b>*</b> Confirmação de senha deve ter mais que 3 dígitos.</small></div>
+            <div *ngIf="csenha?.errors?.['maxlength']"><small><b>*</b> Confirmação de senha não pode ter mais que 6 dígitos.</small></div>
+        </div>
+        <div class="text-danger" *ngIf="(csenha?.dirty || csenha?.touched)&&!verificaIgualdade()"><small><b>*</b> Confirmação de senha e senha devem ser iguais.</small></div>
+    </div>
+
+    <label class="form-label" for="cachorro">Cachorro Favorito: </label>
+        <select id="cachorro" [(ngModel)]="user_dog" name="cachorro" required class="form-control" #cachorro="ngModel">
+            <option value="">Selecione seu cachorro favorito</option>
+            <option *ngFor="let dog of dogs" [value]="dog.img_url">
+                {{dog.name}}
+            </option>
+        </select>
+        <div class="text-danger" *ngIf="cachorro?.invalid && (cachorro?.dirty || cachorro?.touched)">
+            <div *ngIf="cachorro?.errors?.['required']"><small><b>*</b> Selecionar cachorro é obrigatório.</small></div>
+        </div>
+    
+    <input class="btn btn-success mt-3" type="submit" value="Enviar">
+    <div class="text-center mb-3" *ngIf="form.submitted&&form.valid&&verificaIgualdade()">
+        <p>Parabéns, {{user_nome}}! Seu cadastro foi concluído com sucesso!</p>
+        <img [src]="user_dog">
+    </div>
+
+</form>

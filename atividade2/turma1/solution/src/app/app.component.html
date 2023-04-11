@@ -1,0 +1,39 @@
+<!-- 200197 - 210036 -->
+<!-- Template driven forms -->
+
+<div class="container">
+
+  <form #form="ngForm" class="form">
+
+    <div>
+      <label for="nome" class="form-label">Nome:</label>
+      <input type="text" class="form-control" [(ngModel)]="nome" name="nome" required>
+      <div class="text-danger" *ngIf="(form.controls?.['nome']?.invalid && form.controls?.['nome']?.touched) || (form.controls?.['nome']?.invalid && form.submitted)">
+        <div>* Por favor insira o nome!</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="dog" class="form-label">Cachorro Favorito:</label>
+      <select class="form-control" [(ngModel)]="favoriteDog" required name="favoriteDog">
+        <option value="">Selecione um Dog</option>
+        <option *ngFor="let dog of dogs" [value]="dog.name">{{dog.name}}</option>
+      </select>
+      <div class="text-danger" *ngIf="(form.controls?.['favoriteDog']?.invalid && form.controls?.['favoriteDog']?.touched) || (form.controls?.['favoriteDog']?.invalid && form.submitted)">
+        <div>* Por favor escolha um Cachorro</div>
+      </div>
+    </div>
+
+    <input type="submit" class="btn btn-primary mt-3">
+  </form>
+<hr>
+<div class="container mt-5" class="cachorro_favorito">
+  <div *ngIf="form.valid && form.submitted">
+    <div>
+      <h3>Seu cachorro favorito:<br> {{favoriteDog}}</h3>
+      <img [src]="getDog(favoriteDog)" class="mt-3">
+    </div>
+  </div>
+</div>
+
+</div>  

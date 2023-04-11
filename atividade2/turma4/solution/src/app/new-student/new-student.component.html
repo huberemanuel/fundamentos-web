@@ -1,0 +1,69 @@
+<form #form="ngForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label class="form-label" for="nome">Nome</label>
+        <input class="form-control" type="text" id="nome" name="nome" class="form-control" [(ngModel)]="nome"
+            required #input_nome="ngModel">
+        <div *ngIf="form.submitted" class="text-danger">
+            <div *ngIf="!input_nome.value">Nome é obrigatório!</div>
+        </div>
+
+        <label class="form-label" for="foto">Foto</label>
+        <input class="form-control" type="text" id="foto" name="foto" class="form-control" [(ngModel)]="foto"
+            required #input_foto="ngModel">
+        <div *ngIf="input_foto?.dirty" class="text-danger">
+            <div *ngIf="!input_foto.value">Foto é obrigatório!</div>
+            <div *ngIf="!validateFoto()">Foto deve conter HTTP ou HTTPS</div>
+        </div>
+
+        <label class="form-label" for="idCurso">Curso: </label>
+        <select [(ngModel)]="idCurso" name="idCurso" required class="form-control" #input_curso="ngModel">
+            <option value="">Selecione um curso</option>
+            <option *ngFor="let curso of cursos" [value]="curso.id">
+                {{curso.nomeCurso}}
+            </option>
+        </select>
+        <div class="text-danger" *ngIf="input_curso?.dirty && form.controls?.['idCurso']?.invalid">
+            <small><b>*</b> Por favor informe um curso</small>
+        </div>
+
+        <label class="form-label" for="idade">Idade</label>
+        <input class="form-control" type="number" id="idade" name="idade" class="form-control" [(ngModel)]="idade"
+            required min="18" max="100" #input_idade="ngModel">
+        <div *ngIf="form.submitted && input_idade.invalid" class="text-danger">
+            <div *ngIf="!input_idade.value">Idade é obrigatório!</div>
+        </div>
+        <div class="text-danger" *ngIf="form.controls?.['idade']?.value < 18 && (input_idade?.dirty || input_idade?.touched)">
+            <small><b>*</b> Somente maiores de 18 anos podem se cadastrar</small>
+        </div>
+        <div class="text-danger" *ngIf="form.controls?.['idade']?.value > 100 && (input_idade?.dirty || input_idade?.touched)">
+            <small><b>*</b> Somente menores que 100 anos podem se cadastrar</small>
+        </div>
+
+    </div>
+
+    <input class="btn btn-success mt-3" type="submit" value="Enviar"> <!--Verificar dps com o prof-->
+</form>
+
+<br>
+
+<div class="alert alert-success" role="alert" *ngIf="isSubmitted && form.valid">
+    <p>O seguinte usuario de nome: {{nome}} foi cadastrado com sucesso!!</p>
+    <img src="{{foto}}" width="auto" height="300">
+  </div>
+
+  <div *ngIf="cadastros != null">
+    <table>
+        <tr>
+          <th>Nome</th>
+          <th>Foto</th>
+          <th>Curso</th>
+        </tr>
+        <tr *ngFor="let cadastro of cadastros">
+          <td>{{cadastro.nome}}</td>
+          <td>
+            <img src="{{cadastro.foto}}" width="auto" height="300">
+          </td>
+          <td>{{cadastro.idCurso}}</td>
+        </tr>
+      </table>
+  </div>

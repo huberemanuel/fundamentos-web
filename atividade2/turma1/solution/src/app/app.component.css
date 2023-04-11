@@ -1,0 +1,11 @@
+.cachorro_favorito div{
+
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.cachorro_favorito div img{
+    height: 600px;
+    width: 600px;
+}
